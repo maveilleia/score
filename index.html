@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#fdf2f4">
-<title>Score de visibilité IA</title>
-<meta name="description" content="Votre score de visibilité IA en une minute, offert par MaVeilleIA.">
+<title>Diagnostic visibilité IA</title>
+<meta name="description" content="Votre diagnostic de visibilité IA, offert par MaVeilleIA.">
 <link rel="icon" href="logo-mia.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -112,12 +112,12 @@
   </header>
 
   <h1>Votre marque est-elle <em>visible</em> dans les réponses des IA&nbsp;?</h1>
-  <p class="lead">Recevez votre score de visibilité IA gratuit en une minute : comment les assistants comme ChatGPT, Perplexity ou Gemini parlent de vous.</p>
+  <p class="lead">Recevez gratuitement votre diagnostic de visibilité IA : ce que les assistants comme ChatGPT, Perplexity ou Gemini répondent sur votre marque et votre secteur.</p>
 
   <ol class="steps">
     <li><b>1</b><span>Vous indiquez votre site et vos coordonnées.</span></li>
-    <li><b>2</b><span>Mia calcule votre score express, à l’écran.</span></li>
-    <li><b>3</b><span>Adrien vous rappelle pour vous présenter le diagnostic complet.</span></li>
+    <li><b>2</b><span>Mia interroge les IA sur votre marque et vos concurrents.</span></li>
+    <li><b>3</b><span>Adrien vous appelle pour vous présenter votre diagnostic.</span></li>
   </ol>
 
   <form id="lead-form" novalidate>
@@ -153,18 +153,18 @@
     <div>
       <label class="consent" for="consentement">
         <input id="consentement" name="consentement" type="checkbox" required>
-        <span>J’accepte que MaVeilleIA utilise ces informations pour calculer mon score et me recontacter à ce sujet. Aucune revente ; suppression sur simple demande à <a href="mailto:adrien@maveilleia.com">adrien@maveilleia.com</a>. <a href="https://miascore.com/privacy" target="_blank" rel="noopener">Confidentialité</a></span>
+        <span>J’accepte que MaVeilleIA utilise ces informations pour préparer mon diagnostic et me recontacter à ce sujet. Aucune revente ; suppression sur simple demande à <a href="mailto:adrien@maveilleia.com">adrien@maveilleia.com</a>. <a href="https://miascore.com/privacy" target="_blank" rel="noopener">Confidentialité</a></span>
       </label>
-      <div class="field-error" id="err-consentement">Cochez cette case pour recevoir votre score.</div>
+      <div class="field-error" id="err-consentement">Cochez cette case pour recevoir votre diagnostic.</div>
     </div>
     <div class="alert" id="alert" role="alert"></div>
-    <button type="submit" id="submit"><span class="spinner" aria-hidden="true"></span><span id="submit-label">Voir mon score IA</span></button>
+    <button type="submit" id="submit"><span class="spinner" aria-hidden="true"></span><span id="submit-label">Recevoir mon diagnostic</span></button>
   </form>
 
   <div class="done" id="done" aria-live="polite">
     <h2>C’est noté, merci&nbsp;!</h2>
-    <p>Votre score se calcule sur la page suivante. Cela prend en général moins d’une minute.</p>
-    <a class="btn" id="go" href="https://miascore.com/score">Voir mon score maintenant</a>
+    <p>Mia prépare votre diagnostic de visibilité IA. Adrien vous appelle dans les prochains jours pour vous présenter les résultats.</p>
+    <a class="btn" href="https://miascore.com" target="_blank" rel="noopener">Découvrir Mia</a>
   </div>
 
   <p class="reassure">Gratuit, sans engagement · Données hébergées en Europe</p>
@@ -176,7 +176,6 @@
   var SUPABASE_URL = 'https://eynwgthgcsbifinulein.supabase.co/rest/v1/leads';
   // Clé publique : elle ne permet que d'ajouter une ligne (RLS + droits d'insertion seuls).
   var SUPABASE_KEY = 'sb_publishable_mZ97vHmMxz8t7r5Ns5bF1Q_DLlCNn0T';
-  var SCORE_URL = 'https://miascore.com/score?domain=';
   var DEFAULT_EVENT = 'journee-international-2026-10-09';
 
   var params = new URLSearchParams(location.search);
@@ -187,7 +186,6 @@
   var label = document.getElementById('submit-label');
   var alertBox = document.getElementById('alert');
   var done = document.getElementById('done');
-  var go = document.getElementById('go');
   var sending = false;
 
   function normalizeDomain(raw) {
@@ -291,11 +289,9 @@
     };
 
     sendWithRetry(payload).then(function () {
-      var target = SCORE_URL + encodeURIComponent(d.domain);
-      go.href = target;
       form.style.display = 'none';
       done.classList.add('show');
-      setTimeout(function () { location.href = target; }, 900);
+      done.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }).catch(function (err) {
       sending = false;
       btn.disabled = false;
