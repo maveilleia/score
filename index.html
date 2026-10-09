@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#fdf2f4">
+<title>Score de visibilité IA</title>
+<meta name="description" content="Votre score de visibilité IA en une minute, offert par MaVeilleIA.">
+<link rel="icon" href="logo-mia.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://eynwgthgcsbifinulein.supabase.co">
+<link rel="preconnect" href="https://miascore.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Platypi:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy-950: #2a0304;
+    --navy-900: #410508;
+    --orange-500: #cd4f4a;
+    --orange-600: #b8423d;
+    --cream-50: #fdf2f4;
+    --cream-200: #f3c5cc;
+    --ink-500: #8b4248;
+    --white: #ffffff;
+    --error: #b42318;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--cream-50);
+    color: var(--navy-900);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 520px; margin: 0 auto; padding: 24px 16px 40px; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 28px; }
+  header img { height: 30px; width: auto; display: block; }
+  .badge {
+    font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--orange-500); background: var(--white); border: 1px solid var(--cream-200);
+    border-radius: 999px; padding: 5px 10px; white-space: nowrap;
+  }
+  h1 {
+    font-family: Platypi, Georgia, serif; font-weight: 600;
+    font-size: 31px; line-height: 1.15; color: var(--navy-950); margin: 0 0 12px;
+  }
+  h1 em { font-style: normal; color: var(--orange-500); }
+  .lead { color: var(--ink-500); margin: 0 0 22px; font-size: 16px; }
+  .steps { list-style: none; padding: 0; margin: 0 0 24px; display: grid; gap: 8px; }
+  .steps li { display: flex; gap: 10px; align-items: baseline; font-size: 14px; color: var(--navy-900); }
+  .steps b {
+    flex: 0 0 22px; height: 22px; border-radius: 50%; background: var(--orange-500); color: var(--white);
+    font-size: 12px; display: inline-flex; align-items: center; justify-content: center;
+  }
+  form {
+    background: var(--white); border: 1px solid var(--cream-200); border-radius: 18px;
+    padding: 20px 16px; display: grid; gap: 14px;
+  }
+  label { display: block; font-size: 13px; font-weight: 600; color: var(--navy-950); margin-bottom: 5px; }
+  label .opt { font-weight: 400; color: var(--ink-500); }
+  input[type=text], input[type=email], input[type=tel] {
+    width: 100%; font: inherit; font-size: 16px; color: var(--navy-950);
+    background: var(--cream-50); border: 1.5px solid var(--cream-200); border-radius: 12px;
+    padding: 12px 13px; outline: none; -webkit-appearance: none; appearance: none;
+  }
+  input:focus { border-color: var(--orange-500); background: var(--white); }
+  input[aria-invalid=true] { border-color: var(--error); }
+  .field-error { color: var(--error); font-size: 13px; margin-top: 4px; display: none; }
+  .field-error.show { display: block; }
+  .consent { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--ink-500); line-height: 1.45; }
+  .consent input { margin-top: 2px; width: 20px; height: 20px; flex: 0 0 20px; accent-color: var(--orange-500); }
+  .consent a { color: var(--orange-500); }
+  button {
+    font: inherit; font-weight: 600; font-size: 17px; color: var(--white);
+    background: var(--orange-500); border: 0; border-radius: 12px; padding: 15px 18px; width: 100%;
+    cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  button:active { background: var(--orange-600); }
+  button[disabled] { opacity: .75; cursor: progress; }
+  .spinner {
+    width: 18px; height: 18px; border-radius: 50%; border: 2.5px solid rgba(255,255,255,.4);
+    border-top-color: var(--white); animation: spin .8s linear infinite; display: none;
+  }
+  button[disabled] .spinner { display: inline-block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .alert {
+    display: none; border-radius: 12px; padding: 12px 14px; font-size: 14px;
+    background: #fdecea; color: var(--error); border: 1px solid #f5c2bd;
+  }
+  .alert.show { display: block; }
+  .done { display: none; text-align: center; background: var(--white); border: 1px solid var(--cream-200); border-radius: 18px; padding: 28px 18px; }
+  .done.show { display: block; }
+  .done h2 { font-family: Platypi, Georgia, serif; color: var(--navy-950); margin: 0 0 8px; font-size: 24px; }
+  .done p { color: var(--ink-500); margin: 0 0 18px; }
+  .done a.btn {
+    display: inline-block; text-decoration: none; color: var(--white); background: var(--orange-500);
+    border-radius: 12px; padding: 14px 18px; font-weight: 600;
+  }
+  .reassure { text-align: center; font-size: 12px; color: var(--ink-500); margin-top: 14px; }
+  footer { text-align: center; font-size: 12px; color: var(--ink-500); margin-top: 26px; }
+  footer a { color: var(--ink-500); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="logo-mia.png" alt="Mia, par MaVeilleIA" width="412" height="117">
+    <span class="badge" id="badge">Journée de l’International</span>
+  </header>
+
+  <h1>Votre marque est-elle <em>visible</em> dans les réponses des IA&nbsp;?</h1>
+  <p class="lead">Recevez votre score de visibilité IA gratuit en une minute : comment les assistants comme ChatGPT, Perplexity ou Gemini parlent de vous.</p>
+
+  <ol class="steps">
+    <li><b>1</b><span>Vous indiquez votre site et vos coordonnées.</span></li>
+    <li><b>2</b><span>Mia calcule votre score express, à l’écran.</span></li>
+    <li><b>3</b><span>Adrien vous rappelle pour vous présenter le diagnostic complet.</span></li>
+  </ol>
+
+  <form id="lead-form" novalidate>
+    <div>
+      <label for="site">Site web de votre marque</label>
+      <input id="site" name="site" type="text" inputmode="url" autocomplete="url" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="monsite.fr" required maxlength="300">
+      <div class="field-error" id="err-site">Indiquez l’adresse de votre site, par exemple monsite.fr</div>
+    </div>
+    <div>
+      <label for="nom">Prénom et nom</label>
+      <input id="nom" name="nom" type="text" autocomplete="name" required maxlength="200">
+      <div class="field-error" id="err-nom">Indiquez votre nom.</div>
+    </div>
+    <div>
+      <label for="societe">Société</label>
+      <input id="societe" name="societe" type="text" autocomplete="organization" required maxlength="200">
+      <div class="field-error" id="err-societe">Indiquez votre société.</div>
+    </div>
+    <div>
+      <label for="email">E-mail professionnel</label>
+      <input id="email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" required maxlength="254">
+      <div class="field-error" id="err-email">Indiquez une adresse e-mail valide.</div>
+    </div>
+    <div>
+      <label for="telephone">Téléphone</label>
+      <input id="telephone" name="telephone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="40">
+      <div class="field-error" id="err-telephone">Indiquez un numéro de téléphone.</div>
+    </div>
+    <div>
+      <label for="fonction">Fonction <span class="opt">(facultatif)</span></label>
+      <input id="fonction" name="fonction" type="text" autocomplete="organization-title" maxlength="200">
+    </div>
+    <div>
+      <label class="consent" for="consentement">
+        <input id="consentement" name="consentement" type="checkbox" required>
+        <span>J’accepte que MaVeilleIA utilise ces informations pour calculer mon score et me recontacter à ce sujet. Aucune revente ; suppression sur simple demande à <a href="mailto:adrien@maveilleia.com">adrien@maveilleia.com</a>. <a href="https://miascore.com/privacy" target="_blank" rel="noopener">Confidentialité</a></span>
+      </label>
+      <div class="field-error" id="err-consentement">Cochez cette case pour recevoir votre score.</div>
+    </div>
+    <div class="alert" id="alert" role="alert"></div>
+    <button type="submit" id="submit"><span class="spinner" aria-hidden="true"></span><span id="submit-label">Voir mon score IA</span></button>
+  </form>
+
+  <div class="done" id="done" aria-live="polite">
+    <h2>C’est noté, merci&nbsp;!</h2>
+    <p>Votre score se calcule sur la page suivante. Cela prend en général moins d’une minute.</p>
+    <a class="btn" id="go" href="https://miascore.com/score">Voir mon score maintenant</a>
+  </div>
+
+  <p class="reassure">Gratuit, sans engagement · Données hébergées en Europe</p>
+  <footer>MaVeilleIA · <a href="https://miascore.com" target="_blank" rel="noopener">miascore.com</a></footer>
+</div>
+
+<script>
+(function () {
+  var SUPABASE_URL = 'https://eynwgthgcsbifinulein.supabase.co/rest/v1/leads';
+  // Clé publique : elle ne permet que d'ajouter une ligne (RLS + droits d'insertion seuls).
+  var SUPABASE_KEY = 'sb_publishable_mZ97vHmMxz8t7r5Ns5bF1Q_DLlCNn0T';
+  var SCORE_URL = 'https://miascore.com/score?domain=';
+  var DEFAULT_EVENT = 'journee-international-2026-10-09';
+
+  var params = new URLSearchParams(location.search);
+  var evenement = (params.get('e') || DEFAULT_EVENT).slice(0, 100);
+
+  var form = document.getElementById('lead-form');
+  var btn = document.getElementById('submit');
+  var label = document.getElementById('submit-label');
+  var alertBox = document.getElementById('alert');
+  var done = document.getElementById('done');
+  var go = document.getElementById('go');
+  var sending = false;
+
+  function normalizeDomain(raw) {
+    var s = (raw || '').trim().toLowerCase();
+    s = s.replace(/^[a-z]+:\/\//, '').replace(/^www\./, '');
+    s = s.split(/[\/?#\s]/)[0].replace(/:\d+$/, '').replace(/\.$/, '');
+    return /^[a-z0-9¡-￿]([a-z0-9¡-￿-]*[a-z0-9¡-￿])?(\.[a-z0-9¡-￿]([a-z0-9¡-￿-]*[a-z0-9¡-￿])?)+$/.test(s) ? s : '';
+  }
+
+  function setError(id, show) {
+    var input = document.getElementById(id);
+    var err = document.getElementById('err-' + id);
+    if (err) err.classList.toggle('show', show);
+    if (input && input.type !== 'checkbox') input.setAttribute('aria-invalid', show ? 'true' : 'false');
+    return !show;
+  }
+
+  function validate(d) {
+    var ok = true;
+    ok = setError('site', !d.domain) && ok;
+    ok = setError('nom', d.nom.length < 2) && ok;
+    ok = setError('societe', d.societe.length < 1) && ok;
+    ok = setError('email', !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email)) && ok;
+    ok = setError('telephone', d.telephone.replace(/[^\d]/g, '').length < 6) && ok;
+    ok = setError('consentement', !d.consentement) && ok;
+    return ok;
+  }
+
+  function post(payload, timeoutMs) {
+    var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, timeoutMs) : null;
+    return fetch(SUPABASE_URL, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(payload),
+      signal: ctrl ? ctrl.signal : undefined
+    }).then(function (res) {
+      if (timer) clearTimeout(timer);
+      if (!res.ok) {
+        var e = new Error('HTTP ' + res.status);
+        e.status = res.status;
+        throw e;
+      }
+    }, function (err) {
+      if (timer) clearTimeout(timer);
+      throw err;
+    });
+  }
+
+  function sendWithRetry(payload) {
+    return post(payload, 10000).catch(function (err) {
+      // Une erreur 400 vient des données : inutile de réessayer.
+      if (err && err.status && err.status >= 400 && err.status < 500) throw err;
+      return new Promise(function (r) { setTimeout(r, 800); }).then(function () { return post(payload, 12000); });
+    });
+  }
+
+  ['site', 'nom', 'societe', 'email', 'telephone', 'consentement'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', function () { setError(id, false); });
+    document.getElementById(id).addEventListener('change', function () { setError(id, false); });
+  });
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    if (sending) return;
+    alertBox.classList.remove('show');
+
+    var d = {
+      site: form.site.value.trim(),
+      domain: normalizeDomain(form.site.value),
+      nom: form.nom.value.trim(),
+      societe: form.societe.value.trim(),
+      email: form.email.value.trim().toLowerCase(),
+      telephone: form.telephone.value.trim(),
+      fonction: form.fonction.value.trim(),
+      consentement: form.consentement.checked
+    };
+    if (!validate(d)) {
+      var first = form.querySelector('[aria-invalid=true]') || (d.consentement ? null : form.consentement);
+      if (first) first.focus();
+      return;
+    }
+
+    sending = true;
+    btn.disabled = true;
+    label.textContent = 'Enregistrement…';
+
+    var payload = {
+      evenement: evenement,
+      nom: d.nom,
+      societe: d.societe,
+      fonction: d.fonction || null,
+      email: d.email,
+      telephone: d.telephone,
+      site: d.site,
+      consentement: true
+    };
+
+    sendWithRetry(payload).then(function () {
+      var target = SCORE_URL + encodeURIComponent(d.domain);
+      go.href = target;
+      form.style.display = 'none';
+      done.classList.add('show');
+      setTimeout(function () { location.href = target; }, 900);
+    }).catch(function (err) {
+      sending = false;
+      btn.disabled = false;
+      label.textContent = 'Réessayer';
+      alertBox.textContent = (err && err.status === 400)
+        ? 'Une information semble incorrecte. Vérifiez l’e-mail, le téléphone et le site, puis réessayez.'
+        : 'La connexion a échoué. Vérifiez votre réseau (la 4G fonctionne souvent mieux que le Wi-Fi de la salle), puis réessayez.';
+      alertBox.classList.add('show');
+    });
+  });
+})();
+</script>
+</body>
+</html>
